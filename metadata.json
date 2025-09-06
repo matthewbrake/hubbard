@@ -1,0 +1,5 @@
+{
+  "name": "Hubbard System Health Dashboard - 2",
+  "description": "A web-based dashboard for monitoring and managing the health of the Hubbard legacy system. It provides tools for session management, system maintenance, and performance overview in a modern, user-friendly interface.",
+  "requestFramePermissions": []
+}
