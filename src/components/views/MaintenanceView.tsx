@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from '../ui/Card';
 import { runFileCheck, runIndexRebuild } from '../../services/hubbardApiService';
@@ -9,22 +8,40 @@ export const MaintenanceView: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleRunFileCheck = async () => {
+        console.log('[UI Action] User triggered "Check File Integrity"');
         setIsLoading(true);
         setOutput('Running file integrity check...');
-        const result = await runFileCheck();
-        setOutput(result);
-        setIsLoading(false);
+        try {
+            const result = await runFileCheck();
+            setOutput(result);
+            console.log('[UI Action] "Check File Integrity" completed.');
+        } catch (error) {
+            const errorMessage = 'Error running file integrity check.';
+            setOutput(errorMessage);
+            console.error(`[UI Action] ${errorMessage}`, error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleRunIndexRebuild = async () => {
         if (!window.confirm('WARNING: Rebuilding indexes can be a dangerous operation and may require system downtime. Are you sure you want to proceed?')) {
             return;
         }
+        console.log('[UI Action] User triggered "Rebuild Corrupt Indexes"');
         setIsLoading(true);
         setOutput('Starting index rebuild process...');
-        const result = await runIndexRebuild();
-        setOutput(result);
-        setIsLoading(false);
+        try {
+            const result = await runIndexRebuild();
+            setOutput(result);
+            console.log('[UI Action] "Rebuild Corrupt Indexes" completed.');
+        } catch (error) {
+            const errorMessage = 'Error running index rebuild.';
+            setOutput(errorMessage);
+            console.error(`[UI Action] ${errorMessage}`, error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

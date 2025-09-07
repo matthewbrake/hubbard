@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import type { ViewType } from '../../types';
-import config from '../../config';
 import { getSessions } from '../../services/hubbardApiService';
 
 interface HeaderProps {
@@ -22,8 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView }) => {
     useEffect(() => {
         const checkStatus = async () => {
             try {
-                // In a real app, this would be a dedicated lightweight health check endpoint.
-                // For this mock setup, we'll use the getSessions call as a proxy for connectivity.
+                // Use a lightweight API call as a proxy for agent connectivity.
                 await getSessions();
                 setIsOnline(true);
             } catch {
@@ -32,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView }) => {
         };
         
         checkStatus(); // Initial check
-        const interval = setInterval(checkStatus, 10000);
+        const interval = setInterval(checkStatus, 10000); // Check every 10 seconds
         return () => clearInterval(interval);
     }, []);
 

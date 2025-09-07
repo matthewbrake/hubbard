@@ -1,14 +1,14 @@
-
 import React from 'react';
 import { Card } from '../ui/Card';
-import { StatusOnlineIcon, StatusOfflineIcon, WrenchScrewdriverIcon, ChartBarIcon, UsersIcon } from '../ui/Icons';
+import { StatusOnlineIcon, WrenchScrewdriverIcon, ChartBarIcon, UsersIcon } from '../ui/Icons';
 import { PerformanceView } from './PerformanceView';
-import { useScheduledJobs, useHubbardSessions } from '../../hooks/useHubbardApi';
+import { useScheduledJobs, useHubbardSessions, useServerMetrics } from '../../hooks/useHubbardApi';
 
 
 export const DashboardView: React.FC = () => {
     const { jobs, loading: jobsLoading, error: jobsError } = useScheduledJobs();
     const { sessions, loading: sessionsLoading, error: sessionsError } = useHubbardSessions();
+    const { metrics, loading: metricsLoading } = useServerMetrics();
 
     const renderJobStatus = () => {
         if (jobsLoading) return <p className="text-gray-400">Loading jobs...</p>;
@@ -40,6 +40,7 @@ export const DashboardView: React.FC = () => {
                         <StatusOnlineIcon />
                         <span className="text-lg font-semibold text-green-400">Online</span>
                     </div>
+                     <div className="text-sm text-gray-400 mt-2">Latency: {metricsLoading ? '...' : `${metrics?.latency}ms`}</div>
                 </Card>
                 <Card title="Active Sessions" titleIcon={<UsersIcon/>}>
                      <p className="text-3xl font-bold">{sessionsLoading ? '-' : sessions.length}</p>
@@ -48,7 +49,7 @@ export const DashboardView: React.FC = () => {
                      <p className="text-3xl font-bold text-red-400">{jobsLoading ? '-' : jobs.filter(j => j.status === 'failed').length}</p>
                 </Card>
                  <Card title="CPU Load" titleIcon={<ChartBarIcon/>}>
-                     <p className="text-3xl font-bold">~45%</p>
+                     <p className="text-3xl font-bold">{metricsLoading ? '-' : `${metrics?.cpuUsage}%`}</p>
                 </Card>
             </div>
             

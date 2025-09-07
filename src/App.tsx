@@ -4,9 +4,9 @@ import { Header } from './components/layout/Header';
 import { DashboardView } from './components/views/DashboardView';
 import { SessionManagerView } from './components/views/SessionManagerView';
 import { MaintenanceView } from './components/views/MaintenanceView';
-import { PerformanceView } from './components/views/PerformanceView';
 import { LogView } from './components/views/LogView';
 import { SettingsView } from './components/views/SettingsView';
+import { PerformanceView } from './components/views/PerformanceView';
 import type { ViewType } from './types';
 
 const App: React.FC = () => {

@@ -1,3 +1,5 @@
+
+
 export type ViewType = 'dashboard' | 'sessions' | 'maintenance' | 'performance' | 'logs' | 'settings';
 
 export interface HubbardSession {

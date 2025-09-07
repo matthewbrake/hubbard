@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { useHubbardSessions } from '../../hooks/useHubbardApi';
 import { killSession } from '../../services/hubbardApiService';
@@ -13,16 +12,20 @@ export const SessionManagerView: React.FC = () => {
         if (!window.confirm(`Are you sure you want to terminate session with PID ${pid}? This action cannot be undone.`)) {
             return;
         }
+        console.log(`[UI Action] Attempting to terminate session with PID: ${pid}`);
         setKillingPid(pid);
         try {
             const result = await killSession(pid);
             if (result.success) {
                 setSessions(prev => prev.filter(s => s.pid !== pid));
+                console.info(`[UI Action] Successfully terminated PID ${pid}. Message: ${result.message}`);
                 alert(result.message);
             } else {
+                console.error(`[UI Action] Failed to terminate PID ${pid}. Reason: ${result.message}`);
                 alert(`Error: ${result.message}`);
             }
         } catch (err) {
+            console.error('[UI Action] An unexpected error occurred while terminating session:', err);
             alert('An unexpected error occurred.');
         } finally {
             setKillingPid(null);

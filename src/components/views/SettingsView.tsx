@@ -8,8 +8,8 @@ export const SettingsView: React.FC = () => {
     <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
       <dt className="text-sm font-medium text-gray-400">{label}</dt>
       <dd className="mt-1 text-sm text-gray-200 sm:mt-0 sm:col-span-2">
-        <span className="font-mono bg-gray-700 px-2 py-1 rounded">
-            {isSecret ? '********' : value}
+        <span className="font-mono bg-gray-700 px-2 py-1 rounded break-all">
+            {isSecret ? '********' : value || '(not set)'}
         </span>
         {description && <p className="mt-1 text-xs text-gray-500">{description}</p>}
       </dd>
@@ -26,7 +26,7 @@ export const SettingsView: React.FC = () => {
           </dl>
         </div>
          <p className="mt-4 text-xs text-gray-500">
-            This configuration is loaded from environment variables at build time. To change these values, you would modify your <code>.env</code> file and rebuild the application.
+            This configuration is loaded from environment variables at build time. For details on changing these values, see the Frontend Guide in the `/guide` directory.
         </p>
       </Card>
       <Card title="Conceptual Agent Configuration">

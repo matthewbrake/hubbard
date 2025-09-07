@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ViewType } from '../../types';
-import { DashboardIcon, UsersIcon, WrenchScrewdriverIcon, ChartBarIcon, DocumentTextIcon, CogIcon } from '../ui/Icons';
+import { DashboardIcon, UsersIcon, WrenchScrewdriverIcon, DocumentTextIcon, CogIcon, ChartBarIcon } from '../ui/Icons';
 
 interface SidebarProps {
   activeView: ViewType;
@@ -71,8 +71,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView }) =
                 onClick={setActiveView}
             />
          ))}
-        <div className="text-center text-xs text-gray-500 pt-2">
-            <p>System Monitor v1.0</p>
+        <div className="text-center text-xs text-gray-500 pt-2 border-t border-gray-800">
+            <p>System Monitor v1.1</p>
         </div>
       </div>
     </aside>
